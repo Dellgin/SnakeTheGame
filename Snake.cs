@@ -28,7 +28,7 @@ public class Snake
         SnakeSegment? current = Head.NextSegment;
         Point prevPosition = headOldPosition;
 
-        if (current != null)
+        while (current != null)
         {
             (prevPosition, current.Position) = (current.Position, prevPosition);
             current = current.NextSegment;
@@ -38,21 +38,7 @@ public class Snake
     public void Grow()
     {
         var newSegment = new SnakeSegment(Tail.Position);
-
-        if (Head == Tail)
-        {
-            Head.NextSegment = newSegment;
-        }
-        else
-        {
-            SnakeSegment? current = Head;
-            while (current!.NextSegment != Tail)
-            {
-                current = current.NextSegment;
-            }
-            current.NextSegment = newSegment;
-        }
-
+        Tail.NextSegment = newSegment;
         Tail = newSegment;
     }
 

@@ -55,6 +55,19 @@ public class Snake
 
         Tail = newSegment;
     }
+
+    public void ChangeDirection(Direction newDirection)
+    {
+        if ((Direction == Direction.left && newDirection == Direction.right) ||
+            (Direction == Direction.right && newDirection == Direction.left) ||
+            (Direction == Direction.up && newDirection == Direction.down) ||
+            (Direction == Direction.down && newDirection == Direction.up))
+        {
+            return;
+        }
+
+        Direction = newDirection;
+    }
 }
 
 public class SnakeSegment

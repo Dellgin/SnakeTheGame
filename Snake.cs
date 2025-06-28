@@ -88,6 +88,20 @@ public class Snake
         }
         return false;
     }
+
+    public void Draw()
+    {
+        Console.SetCursorPosition(Head.Position.X, Head.Position.Y);
+        Console.Write('@');
+
+        SnakeSegment? current = Head.NextSegment;
+        while (current != null)
+        {
+            Console.SetCursorPosition(current.Position.X, current.Position.Y);
+            Console.Write('0');
+            current = current.NextSegment;
+        }
+    }
 }
 
 public class SnakeSegment

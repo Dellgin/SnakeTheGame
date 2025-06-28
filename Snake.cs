@@ -11,6 +11,29 @@ public class Snake
         Tail = Head;
         Direction = Direction.right;
     }
+
+    public void Move()
+    {
+        Point headOldPosition = Head.Position;
+
+        Head.Position = Direction switch
+        {
+            Direction.up => new Point(headOldPosition.X, headOldPosition.Y - 1),
+            Direction.down => new Point(headOldPosition.X, headOldPosition.Y + 1),
+            Direction.left => new Point(headOldPosition.X - 2, headOldPosition.Y),
+            Direction.right => new Point(headOldPosition.X + 2, headOldPosition.Y),
+            _ => throw new InvalidOperationException("Unknown direction")
+        };
+
+        SnakeSegment? current = Head.NextSegment;
+        Point prevPosition = headOldPosition;
+
+        if (current != null)
+        {
+            (prevPosition, current.Position) = (current.Position, prevPosition);
+            current = current.NextSegment;
+        }
+    }
 }
 
 public class SnakeSegment

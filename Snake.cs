@@ -3,20 +3,20 @@ public class Snake
 {
     public SnakeSegment Head { get; private set; }
     public SnakeSegment Tail { get; private set; }
-    public Direction Direction { get; set; }
+    private Direction _direction;
 
     public Snake(Point startPosition)
     {
         Head = new SnakeSegment(startPosition, isHead: true);
         Tail = Head;
-        Direction = Direction.right;
+        _direction = Direction.right;
     }
 
     public void Move()
     {
         Point headOldPosition = Head.Position;
 
-        Head.Position = Direction switch
+        Head.Position = _direction switch
         {
             Direction.up => new Point(headOldPosition.X, headOldPosition.Y - 1),
             Direction.down => new Point(headOldPosition.X, headOldPosition.Y + 1),
@@ -44,24 +44,20 @@ public class Snake
 
     public void ChangeDirection(Direction newDirection)
     {
-        if ((Direction == Direction.left && newDirection == Direction.right) ||
-            (Direction == Direction.right && newDirection == Direction.left) ||
-            (Direction == Direction.up && newDirection == Direction.down) ||
-            (Direction == Direction.down && newDirection == Direction.up))
+        if ((_direction == Direction.left && newDirection == Direction.right) ||
+            (_direction == Direction.right && newDirection == Direction.left) ||
+            (_direction == Direction.up && newDirection == Direction.down) ||
+            (_direction == Direction.down && newDirection == Direction.up))
         {
             return;
         }
 
-        Direction = newDirection;
+        _direction = newDirection;
     }
 
-    public bool CheckWallCollision(int fieldWidth, int fieldHeight)
-    {
-        return Head.Position.X <= 0 ||
-               Head.Position.X >= fieldWidth ||
-               Head.Position.Y <= 0 ||
-               Head.Position.Y >= fieldHeight;
-    }
+    public bool CheckWallCollision(int w, int h) =>
+        Head.Position.X < 1 || Head.Position.X > w - 1 ||
+        Head.Position.Y < 1 || Head.Position.Y > h - 1;
 
     public bool CheckSelfCollision()
     {
@@ -93,13 +89,11 @@ public class Snake
 public class SnakeSegment
 {
     public Point Position { get; set; }
-    public bool IsHead { get; }
     public SnakeSegment? NextSegment { get; set; }
 
     public SnakeSegment(Point position, bool isHead = false)
     {
         Position = position;
-        IsHead = isHead;
         NextSegment = null;
     }
 }

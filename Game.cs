@@ -11,11 +11,6 @@
         _food.Respawn();
         while (true)
         {
-            Console.Clear();
-            RenderField();
-            _snake.Draw();
-            _food.Draw();
-
             if (Console.KeyAvailable)
             {
                 var key = Console.ReadKey(true).Key;
@@ -30,7 +25,7 @@
 
             _snake.Move();
 
-            if (_snake.CheckSelfCollision() || _snake.CheckWallCollision(47, 24))
+            if (_snake.CheckSelfCollision() || _snake.CheckWallCollision(_width - 2, _height - 1))
             {
                 Console.SetCursorPosition(0, _height);
                 Console.WriteLine("Game Over");
@@ -43,6 +38,11 @@
                 _food.Respawn();
             }
 
+            Console.SetCursorPosition(0, 0);
+            RenderField();
+            _snake.Draw();
+            _food.Draw();
+            
             Thread.Sleep(500);
         }
     }

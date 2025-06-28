@@ -68,6 +68,14 @@ public class Snake
 
         Direction = newDirection;
     }
+
+    public bool CheckWallCollision(int fieldWidth, int fieldHeight)
+    {
+        return Head.Position.X <= 0 ||
+               Head.Position.X >= fieldWidth ||
+               Head.Position.Y <= 0 ||
+               Head.Position.Y >= fieldHeight;
+    }
 }
 
 public class SnakeSegment

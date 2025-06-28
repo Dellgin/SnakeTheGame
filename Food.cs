@@ -28,4 +28,10 @@
         Console.SetCursorPosition(Position.X, Position.Y);
         Console.Write("*");
     }
+
+    public void Draw()
+    {
+        Console.SetCursorPosition(Position.X, Position.Y);
+        Console.Write("*");
+    }
 }

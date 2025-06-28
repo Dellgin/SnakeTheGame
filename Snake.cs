@@ -76,6 +76,18 @@ public class Snake
                Head.Position.Y <= 0 ||
                Head.Position.Y >= fieldHeight;
     }
+
+    public bool CheckSelfCollision()
+    {
+        SnakeSegment? current = Head.NextSegment;
+        while (current != null)
+        {
+            if (Head.Position.Equals(current.Position))
+                return true;
+            current = current.NextSegment;
+        }
+        return false;
+    }
 }
 
 public class SnakeSegment

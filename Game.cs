@@ -30,8 +30,12 @@
 
             _snake.Move();
 
-            if (_snake.CheckSelfCollision()) return;
-            if (_snake.CheckWallCollision(47, 24)) return;
+            if (_snake.CheckSelfCollision() || _snake.CheckWallCollision(47, 24))
+            {
+                Console.SetCursorPosition(0, _height);
+                Console.WriteLine("Game Over");
+                return;
+            }
 
             if (_snake.Head.Position.Equals(_food.Position))
             {

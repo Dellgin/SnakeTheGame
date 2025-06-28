@@ -34,6 +34,27 @@ public class Snake
             current = current.NextSegment;
         }
     }
+
+    public void Grow()
+    {
+        var newSegment = new SnakeSegment(Tail.Position);
+
+        if (Head == Tail)
+        {
+            Head.NextSegment = newSegment;
+        }
+        else
+        {
+            SnakeSegment? current = Head;
+            while (current!.NextSegment != Tail)
+            {
+                current = current.NextSegment;
+            }
+            current.NextSegment = newSegment;
+        }
+
+        Tail = newSegment;
+    }
 }
 
 public class SnakeSegment
